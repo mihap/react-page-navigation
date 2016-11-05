@@ -1,0 +1,83 @@
+{
+  "name": "react-page-navigation",
+  "version": "1.0.0",
+  "description": "Low level API fro creating anchor navigation with smooth scroll",
+  "main": "index.js",
+  "scripts": {
+    "start": "NODE_ENV=development webpack-dev-server --config ./config/webpack.config.babel.js --progress --colors"
+  },
+  "keywords": [
+    "react",
+    "navigation",
+    "scroll",
+    "smooth",
+    "anchor"
+  ],
+  "author": "Michael Pevzner",
+  "license": "MIT",
+  "babel": {
+    "presets": [
+      "babel-preset-latest",
+      "babel-preset-react"
+    ],
+    "env": {
+      "development": {
+        "plugins": [
+          "babel-plugin-transform-class-properties",
+          "react-hot-loader/babel",
+          [
+            "react-transform",
+            {
+              "transforms": [
+                {
+                  "transform": "react-transform-hmr",
+                  "imports": [
+                    "react"
+                  ],
+                  "locals": [
+                    "module"
+                  ]
+                }
+              ]
+            }
+          ]
+        ]
+      }
+    }
+  },
+  "devDependencies": {
+    "autoprefixer": "^6.5.0",
+    "babel-core": "^6.17.0",
+    "babel-eslint": "^7.0.0",
+    "babel-loader": "^6.2.5",
+    "babel-plugin-react-transform": "^2.0.2",
+    "babel-plugin-transform-class-properties": "^6.18.0",
+    "babel-preset-latest": "^6.16.0",
+    "babel-preset-react": "^6.16.0",
+    "base64-font-loader": "0.0.4",
+    "css-loader": "^0.25.0",
+    "cssnano": "^3.7.6",
+    "eslint": "^3.7.1",
+    "eslint-config-airbnb": "^12.0.0",
+    "eslint-loader": "^1.5.0",
+    "eslint-plugin-import": "^1.16.0",
+    "eslint-plugin-jsx-a11y": "^2.2.2",
+    "eslint-plugin-react": "^6.3.0",
+    "html-webpack-plugin": "^2.22.0",
+    "node-sass": "^3.10.1",
+    "normalize.css": "^5.0.0",
+    "postcss-loader": "^1.1.0",
+    "react-addons-shallow-compare": "^15.3.2",
+    "react-hot-loader": "^3.0.0-beta.5",
+    "react-transform-hmr": "^1.0.4",
+    "sass-loader": "^4.0.2",
+    "style-loader": "^0.13.1",
+    "webpack": "^1.13.2",
+    "webpack-dev-server": "^1.16.2",
+    "webpack-merge": "^0.15.0"
+  },
+  "peerDependencies": {
+    "react": "^15.3.2",
+    "react-dom": "^15.3.2"
+  }
+}
