@@ -1,16 +1,6 @@
-import React, { Component } from 'react';
 
+require('smoothscroll-polyfill').polyfill();
 
-class Anchor extends Component {
-  static displayName = 'Anchor';
-
-  render() {
-    return (
-      <div>
-        Anchor
-      </div>
-    );
-  }
-}
-
-export default Anchor;
+export { default as Anchor } from 'components/anchor/container';
+export { default as Navigation } from 'components/navigation/container';
+export { default as navigationReducer } from 'reducers/reducer';

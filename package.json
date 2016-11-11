@@ -4,7 +4,9 @@
   "description": "Low level API fro creating anchor navigation with smooth scroll",
   "main": "index.js",
   "scripts": {
-    "start": "NODE_ENV=development webpack-dev-server --config ./config/webpack.config.babel.js --progress --colors"
+    "start": "NODE_ENV=development webpack-dev-server --config ./config/webpack.config.dev.babel.js --progress --colors",
+    "test": "NODE_ENV=test karma start config/karma.conf.js --single-run",
+    "test:watch": "NODE_ENV=test karma start config/karma.conf.js"
   },
   "keywords": [
     "react",
@@ -21,9 +23,16 @@
       "babel-preset-react"
     ],
     "env": {
+      "test": {
+        "plugins": [
+          "babel-plugin-transform-class-properties",
+          "transform-object-rest-spread"
+        ]
+      },
       "development": {
         "plugins": [
           "babel-plugin-transform-class-properties",
+          "transform-object-rest-spread",
           "react-hot-loader/babel",
           [
             "react-transform",
@@ -52,11 +61,14 @@
     "babel-loader": "^6.2.5",
     "babel-plugin-react-transform": "^2.0.2",
     "babel-plugin-transform-class-properties": "^6.18.0",
+    "babel-plugin-transform-object-rest-spread": "^6.16.0",
     "babel-preset-latest": "^6.16.0",
     "babel-preset-react": "^6.16.0",
+    "babel-register": "^6.18.0",
     "base64-font-loader": "0.0.4",
     "css-loader": "^0.25.0",
     "cssnano": "^3.7.6",
+    "enzyme": "^2.6.0",
     "eslint": "^3.7.1",
     "eslint-config-airbnb": "^12.0.0",
     "eslint-loader": "^1.5.0",
@@ -64,12 +76,24 @@
     "eslint-plugin-jsx-a11y": "^2.2.2",
     "eslint-plugin-react": "^6.3.0",
     "html-webpack-plugin": "^2.22.0",
+    "jasmine-core": "^2.5.2",
+    "jasmine-enzyme": "^2.0.0",
+    "karma": "^1.3.0",
+    "karma-chrome-launcher": "^2.0.0",
+    "karma-cli": "^1.0.1",
+    "karma-jasmine": "^1.0.2",
+    "karma-sourcemap-loader": "^0.3.7",
+    "karma-webpack": "^1.8.0",
     "node-sass": "^3.10.1",
     "normalize.css": "^5.0.0",
     "postcss-loader": "^1.1.0",
     "react-addons-shallow-compare": "^15.3.2",
+    "react-addons-test-utils": "^15.3.2",
     "react-hot-loader": "^3.0.0-beta.5",
+    "react-redux": "^4.4.5",
     "react-transform-hmr": "^1.0.4",
+    "redux": "^3.6.0",
+    "redux-mock-store": "^1.2.1",
     "sass-loader": "^4.0.2",
     "style-loader": "^0.13.1",
     "webpack": "^1.13.2",
@@ -79,5 +103,8 @@
   "peerDependencies": {
     "react": "^15.3.2",
     "react-dom": "^15.3.2"
+  },
+  "dependencies": {
+    "smoothscroll-polyfill": "^0.3.4"
   }
 }

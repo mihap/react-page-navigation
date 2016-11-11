@@ -4,4 +4,34 @@
   user-select: none
 
 .root
-  padding: 20px
+  width: 100%
+
+.navigation
+  position: fixed
+  display: flex
+  align-items: center
+  padding: 6px
+  top: 0
+  left: 0
+  height: 40px
+  width: 100%
+  border-bottom: 1px solid gray
+  background-color: white
+
+.content
+  margin-top: 80px
+
+.contentItem
+  display: flex
+  align-items: center
+  justify-content: center
+  margin: 0 0 20px 20px
+  height: 800px
+  width: 600px
+  border: 1px solid gray
+
+.link
+  padding: 8px
+  cursor: pointer
+  &.active
+    text-decoration: underline
