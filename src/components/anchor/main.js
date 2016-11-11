@@ -19,7 +19,7 @@ class Anchor extends Component {
   }
 
   componentWillUnmount() {
-    this.props.unregisterAnchor(this);
+    this.props.unregisterAnchor(this.getParentElementId());
   }
 
   getParentElementId() {
