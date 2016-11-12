@@ -15,7 +15,7 @@ const findActiveAnchor = (position, anchors) => (
 class Navigation extends Component {
   static displayName = 'Navigation';
   static propTypes = {
-    childFactory: T.func.isRequired,
+    childFactory: T.func,
     anchors:      T.arrayOf(T.shape({
       parentId: T.string.isRequired,
       props:    T.shape({})
@@ -146,12 +146,12 @@ class Navigation extends Component {
   }
 
   render() {
-    const { className, anchors } = this.props;
+    const { className, anchors, childFactory } = this.props;
 
     return (
-      <div className={ className }>
-        { anchors.map(this.renderLink) }
-      </div>
+      <span className={ className }>
+        { childFactory ? anchors.map(this.renderLink) : null }
+      </span>
     );
   }
 }
