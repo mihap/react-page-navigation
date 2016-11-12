@@ -22,7 +22,10 @@ class Navigation extends Component {
     })).isRequired,
     className:    T.string,
     offset:       T.number,
-    behavior:     T.oneOf(['auto', 'smooth'])
+    behavior:     T.oneOf(['auto', 'smooth']),
+    onScroll:     T.func,
+    onEnter:      T.func,
+    onLeave:      T.func
   };
 
   static defaultProps = {
@@ -42,6 +45,9 @@ class Navigation extends Component {
     this.handleScroll     = this.handleScroll.bind(this);
     this.handleLinkClick  = this.handleLinkClick.bind(this);
     this.renderLink       = this.renderLink.bind(this);
+
+    this.onScroll = this.onScroll.bind(this);
+    this.onEnter = this.onEnter.bind(this);
   }
 
   componentDidMount() {
@@ -60,6 +66,27 @@ class Navigation extends Component {
     window.removeEventListener('scroll', this.recalculate);
   }
 
+  onEnter(current, previous) {
+    this.onLeave(previous);
+    if (typeof this.props.onEnter === 'function') {
+      const { parentId, props } = current;
+      this.props.onEnter({ id: parentId, props: { ...props } });
+    }
+  }
+
+  onScroll() {
+    if (typeof this.props.onScroll === 'function') {
+      this.props.onScroll(window.scrollY);
+    }
+  }
+
+  onLeave(previous) {
+    if (typeof this.props.onLeave === 'function' && previous !== null) {
+      const { parentId, props } = previous;
+      this.props.onLeave({ id: parentId, props: { ...props } });
+    }
+  }
+
   getOffset() {
     return this.props.offset;
   }
@@ -73,18 +100,25 @@ class Navigation extends Component {
   }
 
   handleScroll() {
-    const activeAnchor =
-      findActiveAnchor(
-        this.getOffset(),
-        this.props.anchors
-      );
+    const
+      previous = this.state.activeAnchor,
+      activeAnchor =
+        findActiveAnchor(
+          this.getOffset(),
+          this.props.anchors
+        );
 
     if (this.state.activeAnchor && !activeAnchor) {
-      this.setState({ activeAnchor: null });
+      this.setState({ activeAnchor: null }, () => {
+        this.onLeave(previous);
+      });
     } else if (activeAnchor && this.state.activeAnchor !== activeAnchor) {
-      this.setState({ activeAnchor });
+      this.setState({ activeAnchor }, () => {
+        this.onEnter(activeAnchor, previous);
+      });
     }
 
+    this.onScroll();
     this.ticking = false;
   }
 

@@ -34,7 +34,11 @@ class SimpleExample extends Component {
   render() {
     return (
       <div className={ Classes.root }>
-        <Navigation childFactory={ linkRenderer } className={ Classes.navigation } offset={ 80 } />
+        <Navigation
+          childFactory={ linkRenderer }
+          className={ Classes.navigation }
+          offset={ 80 }
+        />
 
         <div className={ Classes.content }>
           <div className={ Classes.contentItem } id="content-item-first">
