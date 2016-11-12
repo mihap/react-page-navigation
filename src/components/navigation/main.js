@@ -4,7 +4,7 @@ import Link from './link';
 const findActiveAnchor = (position, anchors) => (
   anchors.find(a => {
     const
-      node = document.getElementById(a),
+      node = document.getElementById(a.parentId),
       { top, bottom } = node.getBoundingClientRect();
 
     return top <= position && bottom >= position;
@@ -16,7 +16,10 @@ class Navigation extends Component {
   static displayName = 'Navigation';
   static propTypes = {
     childFactory: T.func.isRequired,
-    anchors:      T.arrayOf(T.string).isRequired,
+    anchors:      T.arrayOf(T.shape({
+      parentId: T.string.isRequired,
+      props:    T.shape({})
+    })).isRequired,
     className:    T.string,
     offset:       T.number,
     behavior:     T.oneOf(['auto', 'smooth'])
@@ -93,14 +96,17 @@ class Navigation extends Component {
     this.ticking = true;
   }
 
-  renderLink(id) {
+  renderLink(anchor) {
+    const { parentId, props } = anchor;
+
     return (
       <Link
-        id={ id }
-        key={ id }
-        active={ id === this.state.activeAnchor }
+        id={ parentId }
+        key={ parentId }
+        active={ this.state.activeAnchor === anchor }
         onClick={ this.handleLinkClick }
         childFactory={ this.props.childFactory }
+        childProps={ props }
       />
     );
   }

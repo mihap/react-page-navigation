@@ -5,7 +5,7 @@ import { Anchor, Navigation } from 'react-page-navigation';
 import Classes from './styles.sass';
 
 
-const linkRenderer = ({ id, active }) => {
+const linkRenderer = ({ active, label }) => {
   const className = `
     ${ Classes.link }
     ${ active ? Classes.active : '' }
@@ -13,13 +13,14 @@ const linkRenderer = ({ id, active }) => {
 
   return (
     <div className={ className }>
-      { id }
+      { label }
     </div>
   );
 };
 linkRenderer.propTypes = {
   id: T.string.isRequired,
-  active: T.bool
+  active: T.bool,
+  label: T.string
 };
 
 
@@ -33,29 +34,29 @@ class SimpleExample extends Component {
   render() {
     return (
       <div className={ Classes.root }>
-        <Navigation childFactory={ linkRenderer } className={ Classes.navigation } />
+        <Navigation childFactory={ linkRenderer } className={ Classes.navigation } offset={ 80 } />
 
         <div className={ Classes.content }>
           <div className={ Classes.contentItem } id="content-item-first">
-            <Anchor />
+            <Anchor label="First" />
 
             first
           </div>
 
           <div className={ Classes.contentItem } id="content-item-second">
-            <Anchor />
+            <Anchor label="Second" />
 
             second
           </div>
 
           <div className={ Classes.contentItem } id="content-item-third">
-            <Anchor />
+            <Anchor label="Third" />
 
             third
           </div>
 
           <div className={ Classes.contentItem } id="content-item-fourth">
-            <Anchor />
+            <Anchor label="Fourth" />
 
             fourth
           </div>

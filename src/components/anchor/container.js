@@ -5,11 +5,13 @@ import {
 } from 'actions/actions';
 import Anchor from './main';
 
-const mapStateToProps = () => ({});
+const mapStateToProps = (state, ownProps) => ({
+  ownProps
+});
 
 const mapDispatchToProps = (dispatch) => ({
-  registerAnchor:   (component) => { dispatch(registerAnchor(component)); },
-  unregisterAnchor: (component) => { dispatch(unregisterAnchor(component)); }
+  registerAnchor:   (parentId, props) => { dispatch(registerAnchor(parentId, props)); },
+  unregisterAnchor: (parentId) => { dispatch(unregisterAnchor(parentId)); }
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Anchor);

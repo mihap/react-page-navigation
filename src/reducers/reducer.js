@@ -17,13 +17,30 @@ const getInitialState = () => ({
 
 const reducer = createReducer(getInitialState(), {
   [Constants.REGISTER](state, action) {
-    const anchors = [...state.anchors, action.payload];
+    const
+      { parentId, props } = action.payload,
+      anchors = [...state.anchors, { parentId, props }];
+
     return { ...state, anchors };
   },
 
   [Constants.UNREGISTER](state, action) {
-    const anchors = state.anchors.filter(a => a !== action.payload);
+    const anchors = state.anchors.filter(a => a.parentId !== action.payload.parentId);
     return { ...state, anchors };
+  },
+
+  [Constants.UPDATE](state, action) {
+    const
+      { parentId, props } = action.payload,
+      index = state.anchors.findIndex(a => a.parentId === parentId);
+
+    if (index !== -1) {
+      const anchors = [...state.anchors];
+      anchors[index] = { parentId, props };
+      return { ...state, anchors };
+    }
+
+    return state;
   }
 });
 

@@ -40,11 +40,19 @@ export const getNavigation = (props = {}) => (
   />
 );
 
-export const getSections = (prefix, sectionStyle = {}) => (
+export const getSections = (prefix, sectionStyle = {}, anchorProps = {}) => (
   [1, 2, 3, 4, 5].map(i => (
-    getSection({ id: `${ prefix }-${ i }`, style: sectionStyle, key: i })
+    getSection({ id: `${ prefix }-${ i }`, style: sectionStyle, key: i }, anchorProps)
   ))
 );
+
+export class Stub extends React.Component {
+  componentDidMount() {}
+  componentWillReceiveProps() {}
+  render() {
+    return <div />;
+  }
+}
 
 // DOM static markup
 

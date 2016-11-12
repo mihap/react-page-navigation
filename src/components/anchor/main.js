@@ -5,7 +5,8 @@ class Anchor extends Component {
   static displayName = 'Anchor';
   static propTypes = {
     registerAnchor: T.func.isRequired,
-    unregisterAnchor: T.func.isRequired
+    unregisterAnchor: T.func.isRequired,
+    ownProps: T.object // eslint-disable-line react/forbid-prop-types
   };
 
   constructor() {
@@ -15,7 +16,7 @@ class Anchor extends Component {
   }
 
   componentDidMount() {
-    this.props.registerAnchor(this.getParentElementId());
+    this.props.registerAnchor(this.getParentElementId(), this.props.ownProps);
   }
 
   componentWillUnmount() {

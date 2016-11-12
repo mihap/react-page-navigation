@@ -41,14 +41,22 @@ describe('<Anchor />', () => {
     const section = getSection({ id: 'section' });
 
     mount(setup(store, section));
-    expect(store.getState().navigation.anchors).toEqual(['section']);
+    expect(store.getState().navigation.anchors).toEqual([{ parentId: 'section', props: {} }]);
   });
+
+  it('should assign store props assigned to Anchor', () => {
+    const section = getSection({ id: 'section' }, { label: 'Foo' });
+    mount(setup(store, section));
+
+    expect(store.getState().navigation.anchors).toEqual([{ parentId: 'section', props: { label: 'Foo' } }]);
+  });
+
 
   it('should unregister anchor on unmount', () => {
     const section = getSection({ id: 'section' });
     const mounted = mount(setup(store, section));
 
-    expect(store.getState().navigation.anchors).toEqual(['section']);
+    expect(store.getState().navigation.anchors).toEqual([{ parentId: 'section', props: {} }]);
     mounted.unmount();
     expect(store.getState().navigation.anchors).toEqual([]);
   });
