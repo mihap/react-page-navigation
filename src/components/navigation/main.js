@@ -18,11 +18,13 @@ class Navigation extends Component {
     childFactory: T.func.isRequired,
     anchors:      T.arrayOf(T.string).isRequired,
     className:    T.string,
-    offset:       T.number
+    offset:       T.number,
+    behavior:     T.oneOf(['auto', 'smooth'])
   };
 
   static defaultProps = {
-    offset: 100
+    offset: 0,
+    behavior: 'smooth'
   };
 
   constructor() {
@@ -51,6 +53,7 @@ class Navigation extends Component {
   }
 
   componentWillUnmount() {
+    window.cancelAnimationFrame(this.raf);
     window.removeEventListener('scroll', this.recalculate);
   }
 
@@ -60,10 +63,9 @@ class Navigation extends Component {
 
   handleLinkClick(id) {
     const element = document.getElementById(id);
-
     window.scroll({
       top: element.offsetTop - this.props.offset,
-      behavior: 'smooth'
+      behavior: this.props.behavior
     });
   }
 
@@ -85,7 +87,7 @@ class Navigation extends Component {
 
   recalculate() {
     if (!this.ticking) {
-      window.requestAnimationFrame(this.handleScroll);
+      this.raf = window.requestAnimationFrame(this.handleScroll);
     }
 
     this.ticking = true;

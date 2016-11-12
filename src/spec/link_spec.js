@@ -19,7 +19,9 @@ describe('<Link />', () => {
   });
 
   it('should work', () => {
-    Link.prototype.componentDidMount = () => {};
+    if (typeof Link.prototype.componentDidMount !== 'function') {
+      Link.prototype.componentDidMount = () => {};
+    }
     spyOn(Link.prototype, 'componentDidMount');
 
     mount(<Link { ...props } />);
@@ -37,6 +39,7 @@ describe('<Link />', () => {
     wrapper.setProps({ id: 'bar' });
 
     expect(wrapper.find('div#bar')).toBePresent();
+    expect(wrapper.find('div#foo')).not.toBePresent();
   });
 });
 

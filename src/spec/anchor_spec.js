@@ -1,17 +1,27 @@
-import React from 'react';
 import jasmineEnzyme from 'jasmine-enzyme';
 import { Anchor } from 'react-page-navigation';
 import { mount } from 'enzyme';
 
-import { getStore, setup } from './utils';
+import {
+  getStore,
+  setup,
+  prepareDOM,
+  cleanDOM,
+  getSection
+} from './utils';
 
-let store;
-
-const rootElement = document.createElement('div');
-rootElement.id = 'root';
-document.body.appendChild(rootElement);
 
 describe('<Anchor />', () => {
+  let store;
+
+  beforeAll(() => {
+    prepareDOM();
+  });
+
+  afterAll(() => {
+    cleanDOM();
+  });
+
   beforeEach(() => {
     jasmineEnzyme();
     store = getStore();
@@ -20,34 +30,25 @@ describe('<Anchor />', () => {
 
   it('should work', () => {
     spyOn(Anchor.prototype, 'componentDidMount');
+    const section = getSection({ id: 'section' });
 
-    const subject = (
-      <div id="subject">
-        <Anchor />
-      </div>
-    );
-    mount(setup(store, subject), { attachTo: rootElement });
+    mount(setup(store, section));
     expect(Anchor.prototype.componentDidMount).toHaveBeenCalled();
   });
 
   it('should register anchor on mount', () => {
-    const subject = (
-      <div id="subject">
-        <Anchor />
-      </div>
-    );
-    mount(setup(store, subject), { attachTo: rootElement });
-    expect(store.getState().navigation.anchors).toEqual(['subject']);
+    expect(store.getState().navigation.anchors).toEqual([]);
+    const section = getSection({ id: 'section' });
+
+    mount(setup(store, section));
+    expect(store.getState().navigation.anchors).toEqual(['section']);
   });
 
   it('should unregister anchor on unmount', () => {
-    const subject = (
-      <div id="subject">
-        <Anchor />
-      </div>
-    );
-    const mounted = mount(setup(store, subject), { attachTo: rootElement });
-    expect(store.getState().navigation.anchors).toEqual(['subject']);
+    const section = getSection({ id: 'section' });
+    const mounted = mount(setup(store, section));
+
+    expect(store.getState().navigation.anchors).toEqual(['section']);
     mounted.unmount();
     expect(store.getState().navigation.anchors).toEqual([]);
   });
