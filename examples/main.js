@@ -40,6 +40,7 @@ class SimpleExample extends Component {
           offset={ 80 }
           onEnter={ (anchor) => { console.log('on enter', anchor); } }
           onLeave={ (anchor) => { console.log('on leave', anchor); } }
+          onScroll={ (pos) => { console.log(pos) } }
         />
 
         <div className={ Classes.content }>

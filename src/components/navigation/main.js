@@ -1,4 +1,5 @@
 import React, { Component, PropTypes as T } from 'react';
+import shallowCompare from 'react-addons-shallow-compare';
 import Link from './link';
 
 const findActiveAnchor = (position, anchors) => (
@@ -42,7 +43,7 @@ class Navigation extends Component {
     };
 
     this.recalculate      = this.recalculate.bind(this);
-    this.handleScroll     = this.handleScroll.bind(this);
+    this.handleEvent      = this.handleEvent.bind(this);
     this.handleLinkClick  = this.handleLinkClick.bind(this);
     this.renderLink       = this.renderLink.bind(this);
 
@@ -51,7 +52,8 @@ class Navigation extends Component {
   }
 
   componentDidMount() {
-    window.addEventListener('scroll', this.recalculate);
+    window.addEventListener('scroll', this.recalculate, false);
+    window.addEventListener('resize', this.recalculate, false);
     this.recalculate();
   }
 
@@ -64,6 +66,11 @@ class Navigation extends Component {
   componentWillUnmount() {
     window.cancelAnimationFrame(this.raf);
     window.removeEventListener('scroll', this.recalculate);
+    window.removeEventListener('resize', this.recalculate);
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    return shallowCompare(this, nextProps, nextState);
   }
 
   onEnter(current, previous) {
@@ -99,7 +106,7 @@ class Navigation extends Component {
     });
   }
 
-  handleScroll() {
+  handleEvent() {
     const
       previous = this.state.activeAnchor,
       activeAnchor =
@@ -124,7 +131,7 @@ class Navigation extends Component {
 
   recalculate() {
     if (!this.ticking) {
-      this.raf = window.requestAnimationFrame(this.handleScroll);
+      this.raf = window.requestAnimationFrame(this.handleEvent);
     }
 
     this.ticking = true;
