@@ -63,14 +63,14 @@ class Navigation extends Component {
     }
   }
 
+  shouldComponentUpdate(nextProps, nextState) {
+    return shallowCompare(this, nextProps, nextState);
+  }
+
   componentWillUnmount() {
     window.cancelAnimationFrame(this.raf);
     window.removeEventListener('scroll', this.recalculate);
     window.removeEventListener('resize', this.recalculate);
-  }
-
-  shouldComponentUpdate(nextProps, nextState) {
-    return shallowCompare(this, nextProps, nextState);
   }
 
   onEnter(current, previous) {

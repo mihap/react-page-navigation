@@ -38,9 +38,6 @@ class SimpleExample extends Component {
           childFactory={ linkRenderer }
           className={ Classes.navigation }
           offset={ 80 }
-          onEnter={ (anchor) => { console.log('on enter', anchor); } }
-          onLeave={ (anchor) => { console.log('on leave', anchor); } }
-          onScroll={ (pos) => { console.log(pos) } }
         />
 
         <div className={ Classes.content }>
