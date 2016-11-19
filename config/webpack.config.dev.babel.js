@@ -19,6 +19,10 @@ const DEVELOPMENT_CONFIG = {
       test: /\.sass$/,
       loader: 'style!css?modules&importLoaders=2&camelCase&localIdentName=[folder]__[local]___[hash:base64:5]&sourceMap!postcss!sass?sourceMap&outputStyle=expanded',
       include: [EXAMPLES_PATH]
+    },{
+      test: /\.(ttf|woff)$/,
+      loader: 'base64-font-loader',
+      include: [EXAMPLES_PATH]
     }]
   },
   entry: [
@@ -28,8 +32,12 @@ const DEVELOPMENT_CONFIG = {
   ],
   resolve: {
     alias: {
-      "react-page-navigation": path.resolve(APP_PATH, 'index.js')
+      "react-page-navigation": path.resolve(APP_PATH, 'index.js'),
+      "assets": path.resolve(EXAMPLES_PATH, 'assets')
     }
+  },
+  sassLoader: {
+    includePaths: [path.resolve(EXAMPLES_PATH, 'assets')]
   },
   devtool: 'eval-source-map',
   devServer: {

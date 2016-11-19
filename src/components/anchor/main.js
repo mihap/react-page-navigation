@@ -1,4 +1,5 @@
 import React, { Component, PropTypes as T } from 'react';
+import shallowCompare from 'react-addons-shallow-compare';
 
 
 class Anchor extends Component {
@@ -17,6 +18,10 @@ class Anchor extends Component {
 
   componentDidMount() {
     this.props.registerAnchor(this.getParentElementId(), this.props.ownProps);
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    return shallowCompare(this, nextProps, nextState);
   }
 
   componentWillUnmount() {

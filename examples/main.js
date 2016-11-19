@@ -1,9 +1,18 @@
 import React, { Component, PropTypes as T } from 'react';
 import shallowCompare from 'react-addons-shallow-compare';
-import { Anchor, Navigation } from 'react-page-navigation';
+import { Navigation } from 'react-page-navigation';
+import { navHeight } from '!!sass-variable-loader!assets/variables.scss';
+import ContentItem from './content_item';
 
 import Classes from './styles.sass';
 
+const navigationHeight = parseInt(navHeight, 10);
+const ITEMS = [
+  { id: 'content-item-first',   label: 'First' },
+  { id: 'content-item-second',  label: 'Second' },
+  { id: 'content-item-third',   label: 'Third' },
+  { id: 'content-item-fourth',  label: 'Fourth' }
+];
 
 const linkRenderer = ({ active, label }) => {
   const className = `
@@ -23,47 +32,48 @@ linkRenderer.propTypes = {
   label: T.string
 };
 
+const renderItem = (item) => <ContentItem { ...item } key={ item.id } />;
+
 
 class SimpleExample extends Component {
   static displayName = 'SimpleExample';
+
+  constructor() {
+    super();
+
+    this.state = { scrolledInto: false };
+    this.onScroll = this.onScroll.bind(this);
+  }
 
   shouldComponentUpdate(nextProps, nextState) {
     return shallowCompare(this, nextProps, nextState);
   }
 
+  onScroll(scrollY) {
+    if (scrollY < navigationHeight && this.state.scrolledInto) {
+      this.setState({ scrolledInto: false });
+    } else if (scrollY >= navigationHeight && !this.state.scrolledInto) {
+      this.setState({ scrolledInto: true });
+    }
+  }
+
   render() {
+    const navClassname = `
+      ${ Classes.navigation }
+      ${ this.state.scrolledInto ? Classes.withShadow : '' }
+    `;
+
     return (
       <div className={ Classes.root }>
         <Navigation
           childFactory={ linkRenderer }
-          className={ Classes.navigation }
+          className={ navClassname }
           offset={ 80 }
+          onScroll={ this.onScroll }
         />
 
         <div className={ Classes.content }>
-          <div className={ Classes.contentItem } id="content-item-first">
-            <Anchor label="First" />
-
-            first
-          </div>
-
-          <div className={ Classes.contentItem } id="content-item-second">
-            <Anchor label="Second" />
-
-            second
-          </div>
-
-          <div className={ Classes.contentItem } id="content-item-third">
-            <Anchor label="Third" />
-
-            third
-          </div>
-
-          <div className={ Classes.contentItem } id="content-item-fourth">
-            <Anchor label="Fourth" />
-
-            fourth
-          </div>
+          { ITEMS.map(renderItem) }
         </div>
       </div>
     );

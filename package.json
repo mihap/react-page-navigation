@@ -90,6 +90,7 @@
     "react-transform-hmr": "^1.0.4",
     "redux": "^3.6.0",
     "sass-loader": "^4.0.2",
+    "sass-variable-loader": "0.0.4",
     "style-loader": "^0.13.1",
     "webpack": "^1.13.2",
     "webpack-dev-server": "^1.16.2",

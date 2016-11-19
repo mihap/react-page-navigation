@@ -2,6 +2,8 @@ import React, { Component, PropTypes as T } from 'react';
 import shallowCompare from 'react-addons-shallow-compare';
 import Link from './link';
 
+const MUTATION_CONFIG = { attributes: true, childList: true, characterData: false, subtree: true };
+
 const findActiveAnchor = (position, anchors) => (
   anchors.find(a => {
     const
@@ -44,6 +46,7 @@ class Navigation extends Component {
 
     this.recalculate      = this.recalculate.bind(this);
     this.handleEvent      = this.handleEvent.bind(this);
+    this.handleMutation   = this.handleMutation.bind(this);
     this.handleLinkClick  = this.handleLinkClick.bind(this);
     this.renderLink       = this.renderLink.bind(this);
 
@@ -52,6 +55,9 @@ class Navigation extends Component {
   }
 
   componentDidMount() {
+    this.mutationObserver = new MutationObserver(this.handleMutation);
+    this.mutationObserver.observe(document.body, MUTATION_CONFIG);
+
     window.addEventListener('scroll', this.recalculate, false);
     window.addEventListener('resize', this.recalculate, false);
     this.recalculate();
@@ -68,6 +74,7 @@ class Navigation extends Component {
   }
 
   componentWillUnmount() {
+    this.mutationObserver.disconnect();
     window.cancelAnimationFrame(this.raf);
     window.removeEventListener('scroll', this.recalculate);
     window.removeEventListener('resize', this.recalculate);
@@ -83,7 +90,7 @@ class Navigation extends Component {
 
   onScroll() {
     if (typeof this.props.onScroll === 'function') {
-      this.props.onScroll(window.scrollY);
+      this.props.onScroll(window.scrollY, this.state.activeAnchor);
     }
   }
 
@@ -106,6 +113,10 @@ class Navigation extends Component {
     });
   }
 
+  handleMutation() {
+    this.recalculate();
+  }
+
   handleEvent() {
     const
       previous = this.state.activeAnchor,
@@ -125,8 +136,9 @@ class Navigation extends Component {
       });
     }
 
-    this.onScroll();
+    this.mutationObserver.observe(document.body, MUTATION_CONFIG);
     this.ticking = false;
+    this.onScroll();
   }
 
   recalculate() {
@@ -134,6 +146,7 @@ class Navigation extends Component {
       this.raf = window.requestAnimationFrame(this.handleEvent);
     }
 
+    this.mutationObserver.disconnect();
     this.ticking = true;
   }
 

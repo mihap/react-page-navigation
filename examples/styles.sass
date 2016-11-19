@@ -1,35 +1,54 @@
 @import "~normalize.css"
+@import "assets/variables";
+
+@font-face
+  font-family: 'Roboto'
+  font-style: normal
+  font-weight: 400
+  src: url("assets/roboto.ttf") format("truetype")
+
+html
+  font-family: Roboto, sans-serif
+  font-weight: 400
+  user-select: none
+  color: $black
+  background-color: $gray
 
 *
-  user-select: none
+  box-sizing: border-box
 
 .root
   width: 100%
 
 .navigation
+  font-size: 20px
   will-change: transform
   position: fixed
   display: flex
   align-items: center
-  padding: 6px
+  padding: 6px 40px
   top: 0
   left: 0
-  height: 40px
+  height: $nav-height
   width: 100%
-  border-bottom: 1px solid gray
-  background-color: white
+  border-bottom: 1px solid #d6d6d6
+  background-color: #fff
+  transition: box-shadow .2s ease-in-out
+
+.withShadow
+  box-shadow: rgba(0, 0, 0, 0.0588235) 0px 2px 4px -1px, rgba(0, 0, 0, 0.0588235) 0px 4px 5px 0px, rgba(0, 0, 0, 0.0784314) 0px 1px 10px 0px
 
 .content
-  margin-top: 80px
+  margin-top: $marginTop
 
 .contentItem
+  color: darken($gray, 50%)
   display: flex
   align-items: center
   justify-content: center
-  margin: 0 0 20px 20px
-  height: 800px
-  width: 600px
-  border: 1px solid gray
+  font-size: 60px
+  background-color: #fff
+  margin: 40px
 
 .link
   padding: 8px
