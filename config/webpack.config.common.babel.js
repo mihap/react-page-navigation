@@ -43,7 +43,7 @@ const COMMON_CONFIG = {
         browsers: [
           '>1%',
           'last 4 versions',
-          'not ie < 9'
+          'not ie < 10'
         ]
       },
       safe: true,

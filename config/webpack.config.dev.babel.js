@@ -36,7 +36,8 @@ const DEVELOPMENT_CONFIG = {
     hot: true,
     port: 8000,
     inline: true,
-    progress: true
+    progress: true,
+    host: "0.0.0.0"
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
