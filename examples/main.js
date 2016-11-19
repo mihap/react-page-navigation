@@ -68,7 +68,7 @@ class SimpleExample extends Component {
         <Navigation
           childFactory={ linkRenderer }
           className={ navClassname }
-          offset={ 80 }
+          offset={ navigationHeight }
           onScroll={ this.onScroll }
         />
 

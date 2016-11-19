@@ -7,7 +7,14 @@ class Anchor extends Component {
   static propTypes = {
     registerAnchor: T.func.isRequired,
     unregisterAnchor: T.func.isRequired,
-    ownProps: T.object // eslint-disable-line react/forbid-prop-types
+    offsetTop: T.number,
+    offsetBottom: T.number,
+    ownProps: T.shape({})
+  };
+
+  static defaultProps = {
+    offsetTop: 0,
+    offsetBottom: 0
   };
 
   constructor() {
@@ -17,7 +24,13 @@ class Anchor extends Component {
   }
 
   componentDidMount() {
-    this.props.registerAnchor(this.getParentElementId(), this.props.ownProps);
+    const { offsetTop, offsetBottom } = this.props;
+
+    this.props.registerAnchor(
+      this.getParentElementId(),
+      this.props.ownProps,
+      { offsetTop, offsetBottom }
+    );
   }
 
   shouldComponentUpdate(nextProps, nextState) {

@@ -5,12 +5,12 @@ import Link from './link';
 const MUTATION_CONFIG = { attributes: true, childList: true, characterData: false, subtree: true };
 
 const findActiveAnchor = (position, anchors) => (
-  anchors.find(a => {
+  anchors.find(({ parentId, configuration: { offsetTop, offsetBottom } }) => {
     const
-      node = document.getElementById(a.parentId),
+      node = document.getElementById(parentId),
       { top, bottom } = node.getBoundingClientRect();
 
-    return top <= position && bottom >= position;
+    return top <= position + offsetTop && bottom >= position - offsetBottom;
   })
 );
 
@@ -21,7 +21,11 @@ class Navigation extends Component {
     childFactory: T.func,
     anchors:      T.arrayOf(T.shape({
       parentId: T.string.isRequired,
-      props:    T.shape({})
+      props:    T.shape({}),
+      configuration: T.shape({
+        offsetTop: T.number.isRequired,
+        offsetBottom: T.number.isRequired
+      })
     })).isRequired,
     className:    T.string,
     offset:       T.number,

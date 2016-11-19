@@ -5,12 +5,17 @@ import {
 } from 'actions/actions';
 import Anchor from './main';
 
-const mapStateToProps = (state, ownProps) => ({
-  ownProps
-});
+const mapStateToProps = (
+  state,
+  { offsetTop, offsetBottom, ...ownProps }) => ({ // eslint-disable-line no-unused-vars
+    ownProps
+  }
+);
 
 const mapDispatchToProps = (dispatch) => ({
-  registerAnchor:   (parentId, props) => { dispatch(registerAnchor(parentId, props)); },
+  registerAnchor:   (parentId, props, configuration) => {
+    dispatch(registerAnchor(parentId, props, configuration));
+  },
   unregisterAnchor: (parentId) => { dispatch(unregisterAnchor(parentId)); }
 });
 

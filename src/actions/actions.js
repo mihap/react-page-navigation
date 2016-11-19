@@ -7,9 +7,9 @@ export const Constants = {
 };
 
 const updateAnchors = (action) =>
-  (parentId, props) => ({
+  (parentId, props, configuration) => ({
     type: Constants[action],
-    payload: { parentId, props }
+    payload: { parentId, props, configuration }
   });
 
 export const registerAnchor = updateAnchors('REGISTER');

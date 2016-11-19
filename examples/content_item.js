@@ -1,8 +1,12 @@
 import React, { Component, PropTypes as T } from 'react';
 import shallowCompare from 'react-addons-shallow-compare';
 import { Anchor } from 'react-page-navigation';
+import { contentItemMargin } from '!!sass-variable-loader!assets/variables.scss';
 
 import Classes from './styles.sass';
+
+const offset = parseInt(contentItemMargin, 10);
+
 
 const getRandomInt = (min, max) => (
   Math.floor(Math.random() * (max - min)) + min
@@ -49,7 +53,7 @@ class ContentItem extends Component {
     return (
       <div className={ Classes.contentItem } id={ id }>
         <div style={ { minHeight: this.state.innerElementHeight } } />
-        <Anchor label={ label } />
+        <Anchor label={ label } offsetBottom={ offset } />
         { this.state.loaded ? label : 'loading...' }
       </div>
     );

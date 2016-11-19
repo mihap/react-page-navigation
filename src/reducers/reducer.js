@@ -18,8 +18,8 @@ const getInitialState = () => ({
 const reducer = createReducer(getInitialState(), {
   [Constants.REGISTER](state, action) {
     const
-      { parentId, props } = action.payload,
-      anchors = [...state.anchors, { parentId, props }];
+      { parentId, props, configuration } = action.payload,
+      anchors = [...state.anchors, { parentId, props, configuration }];
 
     return { ...state, anchors };
   },
@@ -31,12 +31,12 @@ const reducer = createReducer(getInitialState(), {
 
   [Constants.UPDATE](state, action) {
     const
-      { parentId, props } = action.payload,
+      { parentId, props, configuration } = action.payload,
       index = state.anchors.findIndex(a => a.parentId === parentId);
 
     if (index !== -1) {
       const anchors = [...state.anchors];
-      anchors[index] = { parentId, props };
+      anchors[index] = { parentId, props, configuration };
       return { ...state, anchors };
     }
 
