@@ -36,19 +36,19 @@ describe('<Anchor />', () => {
     expect(Anchor.prototype.componentDidMount).toHaveBeenCalled();
   });
 
-  it('should register anchor on mount', () => {
+  it('should register anchor on mount with default props', () => {
     expect(store.getState().navigation.anchors).toEqual([]);
     const section = getSection({ id: 'section' });
 
     mount(setup(store, section));
-    expect(store.getState().navigation.anchors).toEqual([{ parentId: 'section', props: {} }]);
+    expect(store.getState().navigation.anchors).toEqual([{ parentId: 'section', props: {}, configuration: { offsetTop: 0, offsetBottom: 0 } }]);
   });
 
   it('should assign store props assigned to Anchor', () => {
     const section = getSection({ id: 'section' }, { label: 'Foo' });
     mount(setup(store, section));
 
-    expect(store.getState().navigation.anchors).toEqual([{ parentId: 'section', props: { label: 'Foo' } }]);
+    expect(store.getState().navigation.anchors).toEqual([{ parentId: 'section', props: { label: 'Foo' }, configuration: { offsetTop: 0, offsetBottom: 0 } }]);
   });
 
 
@@ -56,7 +56,7 @@ describe('<Anchor />', () => {
     const section = getSection({ id: 'section' });
     const mounted = mount(setup(store, section));
 
-    expect(store.getState().navigation.anchors).toEqual([{ parentId: 'section', props: {} }]);
+    expect(store.getState().navigation.anchors).toEqual([{ parentId: 'section', props: {}, configuration: { offsetTop: 0, offsetBottom: 0 } }]);
     mounted.unmount();
     expect(store.getState().navigation.anchors).toEqual([]);
   });

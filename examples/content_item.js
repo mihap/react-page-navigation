@@ -18,7 +18,7 @@ class ContentItem extends Component {
   static propTypes = {
     id: T.string.isRequired,
     label: T.string
-  };
+  }
 
   constructor() {
     super();
@@ -53,7 +53,7 @@ class ContentItem extends Component {
     return (
       <div className={ Classes.contentItem } id={ id }>
         <div style={ { minHeight: this.state.innerElementHeight } } />
-        <Anchor label={ label } offsetBottom={ offset } />
+        <Anchor label={ label } offsetTop={ offset } />
         { this.state.loaded ? label : 'loading...' }
       </div>
     );

@@ -74,7 +74,10 @@ describe('<Navigation />', () => {
     it('should render active link on mount', (done) => {
       window.requestAnimationFrame(() => {
         expect(Navigation.prototype.setState).toHaveBeenCalledTimes(1);
-        expect(Navigation.prototype.setState).toHaveBeenCalledWith({ activeAnchor: { parentId: 'section-1', props: {} } });
+        expect(Navigation.prototype.setState).toHaveBeenCalledWith(
+          { activeAnchor: { parentId: 'section-1', props: jasmine.any(Object), configuration: jasmine.any(Object) } },
+          jasmine.any(Function)
+        );
         done();
       });
     });
@@ -85,7 +88,10 @@ describe('<Navigation />', () => {
 
       window.requestAnimationFrame(() => {
         expect(Navigation.prototype.setState).toHaveBeenCalledTimes(1);
-        expect(Navigation.prototype.setState).toHaveBeenCalledWith({ activeAnchor: { parentId: 'section-2', props: {} } });
+        expect(Navigation.prototype.setState).toHaveBeenCalledWith(
+          { activeAnchor: { parentId: 'section-2', props: jasmine.any(Object), configuration: jasmine.any(Object) } },
+          jasmine.any(Function)
+        );
         done();
       });
     });
@@ -133,7 +139,7 @@ describe('<Navigation />', () => {
     it('should call childFactory if anchor props changed', (done) => {
       store.dispatch({
         type: Constants.UPDATE,
-        payload: { parentId: 'section-1', props: { customProp: 'baz' } }
+        payload: { parentId: 'section-1', props: { customProp: 'baz' }, configuration: { offsetTop: 0, offsetBottom: 0 } }
       });
 
       expect(Stub.prototype.componentWillReceiveProps).toHaveBeenCalledTimes(1);

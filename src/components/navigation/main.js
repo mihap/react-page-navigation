@@ -1,5 +1,6 @@
 import React, { Component, PropTypes as T } from 'react';
 import shallowCompare from 'react-addons-shallow-compare';
+import MutationObserver from 'mutation-observer';
 import Link from './link';
 
 const MUTATION_CONFIG = { attributes: true, childList: true, characterData: false, subtree: true };
@@ -111,6 +112,7 @@ class Navigation extends Component {
 
   handleLinkClick(id) {
     const element = document.getElementById(id);
+
     window.scroll({
       top: element.offsetTop - this.props.offset,
       behavior: this.props.behavior
@@ -124,11 +126,10 @@ class Navigation extends Component {
   handleEvent() {
     const
       previous = this.state.activeAnchor,
-      activeAnchor =
-        findActiveAnchor(
-          this.getOffset(),
-          this.props.anchors
-        );
+      activeAnchor = findActiveAnchor(
+        this.getOffset(),
+        this.props.anchors
+      );
 
     if (this.state.activeAnchor && !activeAnchor) {
       this.setState({ activeAnchor: null }, () => {
@@ -147,10 +148,10 @@ class Navigation extends Component {
 
   recalculate() {
     if (!this.ticking) {
+      this.mutationObserver.disconnect();
       this.raf = window.requestAnimationFrame(this.handleEvent);
     }
 
-    this.mutationObserver.disconnect();
     this.ticking = true;
   }
 
