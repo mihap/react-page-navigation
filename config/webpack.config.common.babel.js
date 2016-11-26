@@ -1,6 +1,4 @@
 import path                     from 'path';
-import webpack                  from 'webpack';
-import autoprefixer             from 'autoprefixer';
 import cssnano                  from 'cssnano';
 
 
@@ -22,16 +20,15 @@ const COMMON_CONFIG = {
     }]
   },
   eslint: {
-    configFile: path.resolve(ROOT_PATH, 'config', 'eslint.json'),
     emitError: false
   },
   resolve: {
     extensions: ['', '.js', 'sass'],
     modulesDirectories: ['node_modules'],
     alias: {
-      'components': path.resolve(APP_PATH, 'components'),
-      'actions':    path.resolve(APP_PATH, 'actions'),
-      'reducers':   path.resolve(APP_PATH, 'reducers')
+      components: path.resolve(APP_PATH, 'components'),
+      actions:    path.resolve(APP_PATH, 'actions'),
+      reducers:   path.resolve(APP_PATH, 'reducers')
     }
   },
   postcss: [

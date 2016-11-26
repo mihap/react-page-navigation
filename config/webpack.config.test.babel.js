@@ -17,18 +17,18 @@ const TEST_CONFIG = {
   },
   resolve: {
     alias: {
-      "react-page-navigation": path.resolve(APP_PATH, 'index.js')
+      'react-page-navigation': path.resolve(APP_PATH, 'index.js')
     }
   },
   plugins: [
     new webpack.DefinePlugin({
       'process.env': {
-        'NODE_ENV': JSON.stringify('test')
+        NODE_ENV: JSON.stringify('test')
       }
     })
   ],
   externals: {
-    'cheerio': 'window',
+    cheerio: 'window',
     'react/addons': true,
     'react/lib/ExecutionEnvironment': true,
     'react/lib/ReactContext': true

@@ -1,4 +1,3 @@
-import webpackConfig from './webpack.config.test.babel';
 import { APP_PATH } from './webpack.config.common.babel';
 import TEST_CONFIG from './webpack.config.test.babel';
 
@@ -19,7 +18,7 @@ const KARMA_CONFIG = (config) =>
     webpack: TEST_CONFIG,
 
     webpackMiddleware: {
-      noInfo: true,
+      noInfo: true
     },
 
     reporters: ['progress'],
@@ -33,5 +32,5 @@ const KARMA_CONFIG = (config) =>
     browsers: ['Chrome']
   });
 
-  export default KARMA_CONFIG;
+export default KARMA_CONFIG;
 
