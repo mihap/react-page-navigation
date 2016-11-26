@@ -1,3 +1,4 @@
+import webpack                  from 'webpack';
 import path                     from 'path';
 import cssnano                  from 'cssnano';
 
@@ -6,7 +7,9 @@ export const ROOT_PATH       = path.resolve(__dirname, '..');
 export const APP_PATH        = path.resolve(ROOT_PATH, 'src');
 export const EXAMPLES_PATH   = path.resolve(ROOT_PATH, 'examples');
 export const TEST_PATH       = path.resolve(ROOT_PATH, 'spec');
+export const LIB_PATH        = path.resolve(ROOT_PATH, 'lib');
 
+const env = process.env.NODE_ENV;
 
 const COMMON_CONFIG = {
   entry: [
@@ -47,6 +50,11 @@ const COMMON_CONFIG = {
       discardComments: {
         removeAll: true
       }
+    })
+  ],
+  plugins: [
+    new webpack.DefinePlugin({
+      'process.env.NODE_ENV': JSON.stringify(env)
     })
   ]
 };
