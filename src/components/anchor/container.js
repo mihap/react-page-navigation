@@ -2,12 +2,12 @@ import { connect } from 'react-redux';
 import {
   registerAnchor,
   unregisterAnchor
-} from 'actions/actions';
+} from '../../actions/actions';
 import Anchor from './main';
 
 const mapStateToProps = (
   state,
-  { offsetTop, offsetBottom, ...ownProps }) => ({ // eslint-disable-line no-unused-vars
+  { offsetTop, offsetBottom, disabled, ...ownProps }) => ({ // eslint-disable-line no-unused-vars
     ownProps
   }
 );

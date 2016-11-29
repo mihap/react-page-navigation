@@ -11,8 +11,8 @@ const findActiveAnchor = (position, anchors) => (
       node = document.getElementById(parentId),
       { top, bottom } = node.getBoundingClientRect();
 
-    return top <= position + offsetTop && bottom >= position - offsetBottom;
-  })
+    return Math.round(top) <= position + offsetTop && Math.round(bottom) > position - offsetBottom;
+  }) || null
 );
 
 
@@ -25,7 +25,8 @@ class Navigation extends Component {
       props:    T.shape({}),
       configuration: T.shape({
         offsetTop: T.number.isRequired,
-        offsetBottom: T.number.isRequired
+        offsetBottom: T.number.isRequired,
+        disabled: T.bool
       })
     })).isRequired,
     className:    T.string,
@@ -68,14 +69,25 @@ class Navigation extends Component {
     this.recalculate();
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (this.props.anchors !== nextProps.anchors) {
-      this.recalculate();
-    }
-  }
-
   shouldComponentUpdate(nextProps, nextState) {
     return shallowCompare(this, nextProps, nextState);
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    const prev = prevState.activeAnchor;
+    const next = this.state.activeAnchor;
+
+    if (prev && prev !== next) {
+      this.onLeave(prev);
+    }
+
+    if (next && next !== prev) {
+      this.onEnter(next);
+    }
+
+    if (this.props.anchors !== prevProps.anchors) {
+      this.recalculate();
+    }
   }
 
   componentWillUnmount() {
@@ -85,11 +97,17 @@ class Navigation extends Component {
     window.removeEventListener('resize', this.recalculate);
   }
 
-  onEnter(current, previous) {
-    this.onLeave(previous);
+  onEnter(current) {
     if (typeof this.props.onEnter === 'function') {
       const { parentId, props } = current;
       this.props.onEnter({ id: parentId, props: { ...props } });
+    }
+  }
+
+  onLeave(previous) {
+    if (typeof this.props.onLeave === 'function') {
+      const { parentId, props } = previous;
+      this.props.onLeave({ id: parentId, props: { ...props } });
     }
   }
 
@@ -99,24 +117,21 @@ class Navigation extends Component {
     }
   }
 
-  onLeave(previous) {
-    if (typeof this.props.onLeave === 'function' && previous !== null) {
-      const { parentId, props } = previous;
-      this.props.onLeave({ id: parentId, props: { ...props } });
-    }
-  }
-
   getOffset() {
     return this.props.offset;
   }
 
   handleLinkClick(id) {
-    const element = document.getElementById(id);
+    const anchor = this.props.anchors.find(a => a.parentId === id);
 
-    window.scroll({
-      top: element.offsetTop - this.props.offset,
-      behavior: this.props.behavior
-    });
+    if (!anchor.configuration.disabled) {
+      const element = document.getElementById(id);
+
+      window.scroll({
+        top: element.offsetTop - this.props.offset - anchor.configuration.offsetTop,
+        behavior: this.props.behavior
+      });
+    }
   }
 
   handleMutation() {
@@ -124,25 +139,15 @@ class Navigation extends Component {
   }
 
   handleEvent() {
-    const
-      previous = this.state.activeAnchor,
-      activeAnchor = findActiveAnchor(
+    const activeAnchor = findActiveAnchor(
         this.getOffset(),
         this.props.anchors
       );
 
-    if (this.state.activeAnchor && !activeAnchor) {
-      this.setState({ activeAnchor: null }, () => {
-        this.onLeave(previous);
-      });
-    } else if (activeAnchor && this.state.activeAnchor !== activeAnchor) {
-      this.setState({ activeAnchor }, () => {
-        this.onEnter(activeAnchor, previous);
-      });
-    }
+    this.setState({ activeAnchor });
 
-    this.mutationObserver.observe(document.body, MUTATION_CONFIG);
     this.ticking = false;
+    this.mutationObserver.observe(document.body, MUTATION_CONFIG);
     this.onScroll();
   }
 

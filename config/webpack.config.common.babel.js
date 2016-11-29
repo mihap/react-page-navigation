@@ -7,7 +7,7 @@ export const ROOT_PATH       = path.resolve(__dirname, '..');
 export const APP_PATH        = path.resolve(ROOT_PATH, 'src');
 export const EXAMPLES_PATH   = path.resolve(ROOT_PATH, 'examples');
 export const TEST_PATH       = path.resolve(ROOT_PATH, 'spec');
-export const LIB_PATH        = path.resolve(ROOT_PATH, 'lib');
+export const DIST_PATH       = path.resolve(ROOT_PATH, 'dist');
 
 const env = process.env.NODE_ENV;
 
@@ -19,8 +19,19 @@ const COMMON_CONFIG = {
     loaders: [{
       test: /\.js$/,
       loader: 'babel!eslint',
-      include: [APP_PATH]
+      include: [APP_PATH, EXAMPLES_PATH]
+    }, {
+      test: /\.sass$/,
+      loader: 'style!css?modules&importLoaders=2&camelCase&localIdentName=[folder]__[local]___[hash:base64:5]&sourceMap!postcss!sass?sourceMap&outputStyle=expanded',
+      include: [APP_PATH, EXAMPLES_PATH]
+    }, {
+      test: /\.(ttf|woff)$/,
+      loader: 'base64-font-loader',
+      include: [APP_PATH, EXAMPLES_PATH]
     }]
+  },
+  sassLoader: {
+    includePaths: [path.resolve(EXAMPLES_PATH, 'assets')]
   },
   eslint: {
     emitError: false
@@ -29,9 +40,8 @@ const COMMON_CONFIG = {
     extensions: ['', '.js', 'sass'],
     modulesDirectories: ['node_modules'],
     alias: {
-      components: path.resolve(APP_PATH, 'components'),
-      actions:    path.resolve(APP_PATH, 'actions'),
-      reducers:   path.resolve(APP_PATH, 'reducers')
+      'react-page-navigation': path.resolve(APP_PATH, 'index.js'),
+      assets: path.resolve(EXAMPLES_PATH, 'assets')
     }
   },
   postcss: [

@@ -9,6 +9,7 @@ class Anchor extends Component {
     unregisterAnchor: T.func.isRequired,
     offsetTop: T.number,
     offsetBottom: T.number,
+    disabled: T.bool,
     ownProps: T.shape({})
   };
 

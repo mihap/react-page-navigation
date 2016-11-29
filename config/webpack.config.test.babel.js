@@ -20,13 +20,6 @@ const TEST_CONFIG = {
       'react-page-navigation': path.resolve(APP_PATH, 'index.js')
     }
   },
-  plugins: [
-    new webpack.DefinePlugin({
-      'process.env': {
-        NODE_ENV: JSON.stringify('test')
-      }
-    })
-  ],
   externals: {
     cheerio: 'window',
     'react/addons': true,

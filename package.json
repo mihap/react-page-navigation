@@ -2,14 +2,16 @@
   "name": "react-page-navigation",
   "version": "1.0.0",
   "description": "Low level API fro creating anchor navigation with smooth scroll",
-  "main": "index.js",
+  "main": "./lib/index.js",
   "scripts": {
-    "start": "NODE_ENV=development webpack-dev-server --config ./config/webpack.config.dev.babel.js --progress --colors",
-    "test": "NODE_ENV=test karma start config/karma.conf.js --single-run",
-    "test:watch": "NODE_ENV=test karma start config/karma.conf.js",
-    "clean": "rimraf lib",
-    "build": "NODE_ENV=production npm run clean && webpack --config ./config/webpack.config.prod.babel.js",
-    "analyze": "NODE_ENV=production npm run clean && webpack --config ./config/webpack.config.prod.babel.js --json | webpack-bundle-size-analyzer"
+    "start": "cross-env NODE_ENV=development webpack-dev-server --config ./config/webpack.config.dev.babel.js --progress --colors",
+    "test": "cross-env NODE_ENV=test karma start config/karma.conf.js --single-run",
+    "test:watch": "cross-env NODE_ENV=test karma start config/karma.conf.js",
+    "prepublish": "npm run clean && npm run build:lib",
+    "clean": "rimraf lib && rimraf dist",
+    "build:example": "npm run clean && cross-env NODE_ENV=production webpack --config ./config/webpack.config.prod.babel.js",
+    "build:lib": "babel src --out-dir lib",
+    "analyze": "npm run clean && cross-env NODE_ENV=production webpack --config ./config/webpack.config.prod.babel.js --json | webpack-bundle-size-analyzer"
   },
   "keywords": [
     "react",
@@ -53,6 +55,10 @@
       }
     }
   },
+  "files": [
+    "lib",
+    "src"
+  ],
   "devDependencies": {
     "autoprefixer": "^6.5.0",
     "babel-core": "^6.17.0",
@@ -96,8 +102,7 @@
     "style-loader": "^0.13.1",
     "webpack": "^1.13.2",
     "webpack-dev-server": "^1.16.2",
-    "webpack-merge": "^0.15.0",
-    "webpack-node-externals": "^1.5.4"
+    "webpack-merge": "^0.15.0"
   },
   "peerDependencies": {
     "react": "^15.4.1",

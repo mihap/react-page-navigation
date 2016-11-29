@@ -1,5 +1,5 @@
 
-import { Constants } from 'actions/actions';
+import { Constants } from '../actions/actions';
 
 
 const createReducer = (initialState, handlers) => (state = initialState, action) => {
@@ -8,6 +8,25 @@ const createReducer = (initialState, handlers) => (state = initialState, action)
   }
 
   return state;
+};
+
+const sort = (anchors) => {
+  const scrollY = window.scrollY;
+
+  /* eslint-disable no-param-reassign */
+  const offsets = anchors.reduce((out, a) => {
+    const el = document.getElementById(a.parentId);
+
+    if (el) {
+      out[a.parentId] = el.getBoundingClientRect().top + scrollY;
+    }
+    return out;
+  }, {});
+  /* eslint-enable no-param-reassign */
+
+  return anchors.sort((a, b) => (
+    offsets[a.parentId] - offsets[b.parentId]
+  ));
 };
 
 
@@ -19,7 +38,7 @@ const reducer = createReducer(getInitialState(), {
   [Constants.REGISTER](state, action) {
     const
       { parentId, props, configuration } = action.payload,
-      anchors = [...state.anchors, { parentId, props, configuration }];
+      anchors = sort([...state.anchors, { parentId, props, configuration }]);
 
     return { ...state, anchors };
   },
@@ -37,7 +56,7 @@ const reducer = createReducer(getInitialState(), {
     if (index !== -1) {
       const anchors = [...state.anchors];
       anchors[index] = { parentId, props, configuration };
-      return { ...state, anchors };
+      return { ...state, anchors: sort(anchors) };
     }
 
     return state;

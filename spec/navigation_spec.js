@@ -3,8 +3,8 @@ import React from 'react';
 import jasmineEnzyme from 'jasmine-enzyme';
 import { Navigation as ConnectedNavigation } from 'react-page-navigation';
 import { mount } from 'enzyme';
-import { Constants } from '../actions/actions';
-import Navigation from '../components/navigation/main';
+import { Constants } from '../src/actions/actions';
+import Navigation from '../src/components/navigation/main';
 import {
   getStore,
   setup,

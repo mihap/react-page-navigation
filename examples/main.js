@@ -40,7 +40,6 @@ class SimpleExample extends Component {
 
   constructor() {
     super();
-
     this.state = { scrolledInto: false };
     this.onScroll = this.onScroll.bind(this);
   }
@@ -62,13 +61,12 @@ class SimpleExample extends Component {
       ${ Classes.navigation }
       ${ this.state.scrolledInto ? Classes.withShadow : '' }
     `;
-
     return (
       <div className={ Classes.root }>
         <Navigation
           childFactory={ linkRenderer }
           className={ navClassname }
-          offset={ navigationHeight }
+          offset={ navigationHeight + 10 }
           onScroll={ this.onScroll }
         />
 

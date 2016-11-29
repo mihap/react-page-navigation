@@ -1,18 +1,18 @@
-import { APP_PATH } from './webpack.config.common.babel';
+import { TEST_PATH } from './webpack.config.common.babel';
 import TEST_CONFIG from './webpack.config.test.babel';
 
 const KARMA_CONFIG = (config) =>
   config.set({
-    basePath: APP_PATH,
+    basePath: TEST_PATH,
 
     frameworks: ['jasmine'],
 
     files: [
-      'spec/spec_helper.js'
+      'spec_helper.js'
     ],
 
     preprocessors: {
-      'spec/spec_helper.js': ['webpack', 'sourcemap']
+      'spec_helper.js': ['webpack', 'sourcemap']
     },
 
     webpack: TEST_CONFIG,

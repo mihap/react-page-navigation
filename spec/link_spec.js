@@ -3,7 +3,7 @@ import React from 'react';
 import jasmineEnzyme from 'jasmine-enzyme';
 import { mount } from 'enzyme';
 
-import Link from '../components/navigation/link';
+import Link from '../src/components/navigation/link';
 
 
 const props = {
