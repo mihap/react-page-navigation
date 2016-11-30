@@ -21,6 +21,10 @@
     "anchor"
   ],
   "author": "Michael Pevzner",
+  "repository": { 
+    "type" : "git",
+    "url" : "https://github.com/mihap/react-page-navigation.git"
+  },
   "license": "MIT",
   "babel": {
     "presets": [
