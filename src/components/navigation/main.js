@@ -1,8 +1,10 @@
 import React, { Component, PropTypes as T } from 'react';
 import shallowCompare from 'react-addons-shallow-compare';
 import MutationObserver from 'mutation-observer';
+import { mount, unmount } from './api';
 import Link from './link';
 
+const noop = () => {};
 const MUTATION_CONFIG = { attributes: true, childList: true, characterData: false, subtree: true };
 
 const findActiveAnchor = (position, anchors) => (
@@ -15,6 +17,10 @@ const findActiveAnchor = (position, anchors) => (
   }) || null
 );
 
+const getAnchorOwnProps = (anchor) => {
+  const { parentId, props } = anchor;
+  return { parentId, props };
+};
 
 class Navigation extends Component {
   static displayName = 'Navigation';
@@ -34,12 +40,17 @@ class Navigation extends Component {
     behavior:     T.oneOf(['auto', 'smooth']),
     onScroll:     T.func,
     onEnter:      T.func,
-    onLeave:      T.func
+    onLeave:      T.func,
+    onChange:     T.func
   };
 
   static defaultProps = {
     offset: 0,
-    behavior: 'smooth'
+    behavior: 'smooth',
+    onScroll: noop,
+    onEnter: noop,
+    onLeave: noop,
+    onChange: noop
   };
 
   constructor() {
@@ -61,12 +72,17 @@ class Navigation extends Component {
   }
 
   componentDidMount() {
+    mount(this);
     this.mutationObserver = new MutationObserver(this.handleMutation);
     this.mutationObserver.observe(document.body, MUTATION_CONFIG);
 
     window.addEventListener('scroll', this.recalculate, false);
     window.addEventListener('resize', this.recalculate, false);
     this.recalculate();
+
+    if (this.props.anchors.length !== 0) {
+      this.props.onChange(this.props.anchors.map(getAnchorOwnProps));
+    }
   }
 
   shouldComponentUpdate(nextProps, nextState) {
@@ -87,10 +103,12 @@ class Navigation extends Component {
 
     if (this.props.anchors !== prevProps.anchors) {
       this.recalculate();
+      this.props.onChange(this.props.anchors.map(getAnchorOwnProps));
     }
   }
 
   componentWillUnmount() {
+    unmount();
     this.mutationObserver.disconnect();
     window.cancelAnimationFrame(this.raf);
     window.removeEventListener('scroll', this.recalculate);
@@ -98,27 +116,17 @@ class Navigation extends Component {
   }
 
   onEnter(current) {
-    if (typeof this.props.onEnter === 'function') {
-      const { parentId, props } = current;
-      this.props.onEnter({ id: parentId, props: { ...props } });
-    }
+    const { parentId, props } = current;
+    this.props.onEnter({ id: parentId, props: { ...props } });
   }
 
   onLeave(previous) {
-    if (typeof this.props.onLeave === 'function') {
-      const { parentId, props } = previous;
-      this.props.onLeave({ id: parentId, props: { ...props } });
-    }
+    const { parentId, props } = previous;
+    this.props.onLeave({ id: parentId, props: { ...props } });
   }
 
   onScroll() {
-    if (typeof this.props.onScroll === 'function') {
-      this.props.onScroll(window.scrollY, this.state.activeAnchor);
-    }
-  }
-
-  getOffset() {
-    return this.props.offset;
+    this.props.onScroll(window.scrollY, this.state.activeAnchor);
   }
 
   handleLinkClick(id) {
@@ -140,7 +148,7 @@ class Navigation extends Component {
 
   handleEvent() {
     const activeAnchor = findActiveAnchor(
-        this.getOffset(),
+        this.props.offset,
         this.props.anchors
       );
 
@@ -161,7 +169,7 @@ class Navigation extends Component {
   }
 
   renderLink(anchor) {
-    const { parentId, props } = anchor;
+    const { parentId, props } = getAnchorOwnProps(anchor);
 
     return (
       <Link
