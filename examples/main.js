@@ -1,7 +1,7 @@
 import React, { Component, PropTypes as T } from 'react';
 import shallowCompare from 'react-addons-shallow-compare';
 import { Navigation } from 'react-page-navigation';
-import { navHeight } from 'assets/variables.scss';
+import { navHeight } from '!!sass-variable-loader!assets/variables.scss';
 import ContentItem from './content_item';
 
 import Classes from './styles.sass';

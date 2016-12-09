@@ -21,9 +21,9 @@
     "anchor"
   ],
   "author": "Michael Pevzner",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/mihap/react-page-navigation.git"
+  "repository": { 
+    "type" : "git",
+    "url" : "https://github.com/mihap/react-page-navigation.git"
   },
   "license": "MIT",
   "babel": {
@@ -64,9 +64,54 @@
     "src"
   ],
   "devDependencies": {
+    "autoprefixer": "^6.5.0",
+    "babel-core": "^6.17.0",
+    "babel-eslint": "^7.0.0",
+    "babel-loader": "^6.2.5",
+    "babel-plugin-react-transform": "^2.0.2",
+    "babel-plugin-transform-class-properties": "^6.18.0",
+    "babel-plugin-transform-object-rest-spread": "^6.16.0",
+    "babel-preset-latest": "^6.16.0",
+    "babel-preset-react": "^6.16.0",
+    "babel-register": "^6.18.0",
+    "base64-font-loader": "0.0.4",
+    "css-loader": "^0.25.0",
+    "cssnano": "^3.7.6",
+    "enzyme": "^2.6.0",
+    "eslint": "^3.7.1",
+    "eslint-config-airbnb": "^12.0.0",
+    "eslint-loader": "^1.5.0",
+    "eslint-plugin-import": "^1.16.0",
+    "eslint-plugin-jsx-a11y": "^2.2.2",
+    "eslint-plugin-react": "^6.3.0",
+    "html-webpack-plugin": "^2.22.0",
+    "jasmine-core": "^2.5.2",
+    "jasmine-enzyme": "^2.0.0",
+    "karma": "^1.3.0",
+    "karma-chrome-launcher": "^2.0.0",
+    "karma-cli": "^1.0.1",
+    "karma-jasmine": "^1.0.2",
+    "karma-sourcemap-loader": "^0.3.7",
+    "karma-webpack": "^1.8.0",
+    "node-sass": "^3.10.1",
+    "normalize.css": "^5.0.0",
+    "postcss-loader": "^1.1.0",
+    "react-addons-shallow-compare": "^15.4.1",
+    "react-addons-test-utils": "^15.4.1",
+    "react-hot-loader": "^3.0.0-beta.5",
     "react-redux": "^4.4.5",
+    "react-transform-hmr": "^1.0.4",
+    "sass-loader": "^4.0.2",
+    "sass-variable-loader": "0.0.4",
+    "style-loader": "^0.13.1",
+    "webpack": "^1.13.2",
+    "webpack-dev-server": "^1.16.2",
+    "webpack-merge": "^0.15.0"
   },
   "peerDependencies": {
+    "react": "^15.4.1",
+    "react-addons-shallow-compare": "^15.4.1",
+    "react-dom": "^15.4.1",
     "redux": "^3.6.0"
   },
   "dependencies": {
