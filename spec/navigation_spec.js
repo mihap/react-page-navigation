@@ -75,8 +75,7 @@ describe('<Navigation />', () => {
       window.requestAnimationFrame(() => {
         expect(Navigation.prototype.setState).toHaveBeenCalledTimes(1);
         expect(Navigation.prototype.setState).toHaveBeenCalledWith(
-          { activeAnchor: { parentId: 'section-1', props: jasmine.any(Object), configuration: jasmine.any(Object) } },
-          jasmine.any(Function)
+          { activeAnchor: { parentId: 'section-1', props: jasmine.any(Object), configuration: jasmine.any(Object) } }
         );
         done();
       });
@@ -89,8 +88,7 @@ describe('<Navigation />', () => {
       window.requestAnimationFrame(() => {
         expect(Navigation.prototype.setState).toHaveBeenCalledTimes(1);
         expect(Navigation.prototype.setState).toHaveBeenCalledWith(
-          { activeAnchor: { parentId: 'section-2', props: jasmine.any(Object), configuration: jasmine.any(Object) } },
-          jasmine.any(Function)
+          { activeAnchor: { parentId: 'section-2', props: jasmine.any(Object), configuration: jasmine.any(Object) } }
         );
         done();
       });
