@@ -13,7 +13,7 @@ const PRODUCTION_CONFIG = {
   ],
   output: {
     path: DIST_PATH,
-    filename: 'index.js'
+    filename: 'bundle.js'
   },
   plugins: [
     new webpack.optimize.OccurrenceOrderPlugin(),

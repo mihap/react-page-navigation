@@ -7,7 +7,7 @@ export const ROOT_PATH       = path.resolve(__dirname, '..');
 export const APP_PATH        = path.resolve(ROOT_PATH, 'src');
 export const EXAMPLES_PATH   = path.resolve(ROOT_PATH, 'examples');
 export const TEST_PATH       = path.resolve(ROOT_PATH, 'spec');
-export const DIST_PATH       = path.resolve(ROOT_PATH, 'build');
+export const DIST_PATH       = path.resolve(ROOT_PATH, 'static');
 
 const env = process.env.NODE_ENV;
 
