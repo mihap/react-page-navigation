@@ -1,7 +1,7 @@
 import React, { Component, PropTypes as T } from 'react';
 import shallowCompare from 'react-addons-shallow-compare';
 import { Anchor } from 'react-page-navigation';
-import { contentItemMargin } from '!!sass-variable-loader!assets/variables.scss';
+import { contentItemMargin } from 'assets/variables.scss';
 
 import Classes from './styles.sass';
 

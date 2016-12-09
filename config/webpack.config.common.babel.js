@@ -25,6 +25,10 @@ const COMMON_CONFIG = {
       loader: 'style!css?modules&importLoaders=2&camelCase&localIdentName=[folder]__[local]___[hash:base64:5]&sourceMap!postcss!sass?sourceMap&outputStyle=expanded',
       include: [APP_PATH, EXAMPLES_PATH]
     }, {
+      test: /\.scss$/,
+      loader: 'sass-variable',
+      include: [EXAMPLES_PATH]
+    }, {
       test: /\.(ttf|woff)$/,
       loader: 'base64-font-loader',
       include: [APP_PATH, EXAMPLES_PATH]
