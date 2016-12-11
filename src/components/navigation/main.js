@@ -126,7 +126,7 @@ class Navigation extends Component {
   }
 
   onScroll() {
-    this.props.onScroll(window.scrollY, this.state.activeAnchor);
+    this.props.onScroll(window.scrollY || window.pageYOffset, this.state.activeAnchor);
   }
 
   handleLinkClick(id) {

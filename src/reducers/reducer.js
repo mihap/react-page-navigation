@@ -11,7 +11,7 @@ const createReducer = (initialState, handlers) => (state = initialState, action)
 };
 
 const sort = (anchors) => {
-  const scrollY = window.scrollY;
+  const scrollY = window.scrollY || window.pageYOffset;
 
   /* eslint-disable no-param-reassign */
   const offsets = anchors.reduce((out, a) => {
