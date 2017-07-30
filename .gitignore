@@ -4,3 +4,4 @@ node_modules/*
 .tern-project
 lib/*
 static/*
+.nvmrc
