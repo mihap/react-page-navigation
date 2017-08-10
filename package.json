@@ -7,11 +7,11 @@
     "start": "cross-env NODE_ENV=development webpack-dev-server --config ./config/webpack.config.dev.babel.js --progress --colors",
     "test": "cross-env NODE_ENV=test karma start config/karma.conf.js --single-run",
     "test:watch": "cross-env NODE_ENV=test karma start config/karma.conf.js",
-    "prepublishOnly": "npm run clean && npm run build:lib",
+    "prepublishOnly": "yarn run clean && yarn run build:lib",
     "clean": "rimraf lib && rimraf static",
-    "build:example": "npm run clean && cross-env NODE_ENV=production webpack --config ./config/webpack.config.prod.babel.js",
+    "build:example": "yarn run clean && cross-env NODE_ENV=production webpack --config ./config/webpack.config.prod.babel.js",
     "build:lib": "cross-env NODE_ENV=production babel src --out-dir lib",
-    "analyze": "npm run clean && cross-env NODE_ENV=production webpack --config ./config/webpack.config.prod.babel.js --json | webpack-bundle-size-analyzer"
+    "analyze": "yarn run clean && cross-env NODE_ENV=production webpack --config ./config/webpack.config.prod.babel.js --json | webpack-bundle-size-analyzer"
   },
   "keywords": [
     "react",
@@ -21,9 +21,9 @@
     "anchor"
   ],
   "author": "Michael Pevzner",
-  "repository": { 
-    "type" : "git",
-    "url" : "https://github.com/mihap/react-page-navigation.git"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mihap/react-page-navigation.git"
   },
   "license": "MIT",
   "babel": {
@@ -75,6 +75,7 @@
     "babel-preset-react": "^6.16.0",
     "babel-register": "^6.18.0",
     "base64-font-loader": "0.0.4",
+    "cross-env": "^5.0.5",
     "css-loader": "^0.25.0",
     "cssnano": "^3.7.6",
     "enzyme": "^2.6.0",
