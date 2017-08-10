@@ -7,7 +7,7 @@
     "start": "cross-env NODE_ENV=development webpack-dev-server --config ./config/webpack.config.dev.babel.js --progress --colors",
     "test": "cross-env NODE_ENV=test karma start config/karma.conf.js --single-run",
     "test:watch": "cross-env NODE_ENV=test karma start config/karma.conf.js",
-    "prepublish": "npm run clean && npm run build:lib",
+    "prepublishOnly": "npm run clean && npm run build:lib",
     "clean": "rimraf lib && rimraf static",
     "build:example": "npm run clean && cross-env NODE_ENV=production webpack --config ./config/webpack.config.prod.babel.js",
     "build:lib": "cross-env NODE_ENV=production babel src --out-dir lib",
