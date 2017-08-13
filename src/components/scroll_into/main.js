@@ -1,9 +1,8 @@
-import React, { Component, PropTypes as T } from 'react';
-import shallowCompare from 'react-addons-shallow-compare';
+import React, { PureComponent, PropTypes as T } from 'react';
 import { simulate } from '../navigation/api';
 
 
-class ScrollInto extends Component {
+class ScrollInto extends PureComponent {
   static displayName = 'ScrollInto';
   static propTypes = {
     id: T.string.isRequired,
@@ -14,10 +13,6 @@ class ScrollInto extends Component {
     super();
 
     this.handleClick = this.handleClick.bind(this);
-  }
-
-  shouldComponentUpdate(nextProps, nextState) {
-    return shallowCompare(this, nextProps, nextState);
   }
 
   handleClick() {

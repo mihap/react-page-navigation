@@ -1,7 +1,6 @@
-import React, { Component, createElement, PropTypes as T } from 'react';
-import shallowCompare from 'react-addons-shallow-compare';
+import React, { PureComponent, createElement, PropTypes as T } from 'react';
 
-class Link extends Component {
+class Link extends PureComponent {
   static propTypes = {
     childFactory: T.func.isRequired,
     onClick:      T.func.isRequired,
@@ -15,10 +14,6 @@ class Link extends Component {
 
     this.createOrUpdateInstance(this.props);
     this.onClick = this.onClick.bind(this);
-  }
-
-  shouldComponentUpdate(nextProps, nextState) {
-    return shallowCompare(this, nextProps, nextState);
   }
 
   componentWillUpdate(nextProps) {

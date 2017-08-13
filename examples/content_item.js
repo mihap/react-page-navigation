@@ -1,5 +1,4 @@
-import React, { Component, PropTypes as T } from 'react';
-import shallowCompare from 'react-addons-shallow-compare';
+import React, { PureComponent, PropTypes as T } from 'react';
 import { Anchor } from 'react-page-navigation';
 import { contentItemMargin } from 'assets/variables.scss';
 
@@ -13,7 +12,7 @@ const getRandomInt = (min, max) => (
 );
 
 
-class ContentItem extends Component {
+class ContentItem extends PureComponent {
   static displayName = 'ContentItem';
   static propTypes = {
     id: T.string.isRequired,
@@ -34,10 +33,6 @@ class ContentItem extends Component {
   componentDidMount() {
     // simutale async load of content
     setTimeout(this.updateChildrenElementHeight, getRandomInt(5 * 100, 15 * 100));
-  }
-
-  shouldComponentUpdate(nextProps, nextState) {
-    return shallowCompare(this, nextProps, nextState);
   }
 
   updateChildrenElementHeight() {

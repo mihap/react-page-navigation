@@ -1,5 +1,4 @@
-import React, { Component, PropTypes as T } from 'react';
-import shallowCompare from 'react-addons-shallow-compare';
+import React, { PureComponent, PropTypes as T } from 'react';
 import MutationObserver from 'mutation-observer';
 import { mount, unmount } from './api';
 import Link from './link';
@@ -22,7 +21,7 @@ const getAnchorOwnProps = (anchor) => {
   return { parentId, props };
 };
 
-class Navigation extends Component {
+class Navigation extends PureComponent {
   static displayName = 'Navigation';
   static propTypes = {
     childFactory: T.func,
@@ -83,10 +82,6 @@ class Navigation extends Component {
     if (this.props.anchors.length !== 0) {
       this.props.onChange(this.props.anchors.map(getAnchorOwnProps));
     }
-  }
-
-  shouldComponentUpdate(nextProps, nextState) {
-    return shallowCompare(this, nextProps, nextState);
   }
 
   componentDidUpdate(prevProps, prevState) {

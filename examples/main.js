@@ -1,5 +1,4 @@
-import React, { Component, PropTypes as T } from 'react';
-import shallowCompare from 'react-addons-shallow-compare';
+import React, { PureComponent, PropTypes as T } from 'react';
 import { Navigation } from 'react-page-navigation';
 import { navHeight } from 'assets/variables.scss';
 import ContentItem from './content_item';
@@ -35,17 +34,13 @@ linkRenderer.propTypes = {
 const renderItem = (item) => <ContentItem { ...item } key={ item.id } />;
 
 
-class SimpleExample extends Component {
+class SimpleExample extends PureComponent {
   static displayName = 'SimpleExample';
 
   constructor() {
     super();
     this.state = { scrolledInto: false };
     this.onScroll = this.onScroll.bind(this);
-  }
-
-  shouldComponentUpdate(nextProps, nextState) {
-    return shallowCompare(this, nextProps, nextState);
   }
 
   onScroll(scrollY) {

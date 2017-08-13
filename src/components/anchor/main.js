@@ -1,8 +1,7 @@
-import React, { Component, PropTypes as T } from 'react';
-import shallowCompare from 'react-addons-shallow-compare';
+import React, { PureComponent, PropTypes as T } from 'react';
 
 
-class Anchor extends Component {
+class Anchor extends PureComponent {
   static displayName = 'Anchor';
   static propTypes = {
     registerAnchor: T.func.isRequired,
@@ -32,10 +31,6 @@ class Anchor extends Component {
       this.props.ownProps,
       { offsetTop, offsetBottom }
     );
-  }
-
-  shouldComponentUpdate(nextProps, nextState) {
-    return shallowCompare(this, nextProps, nextState);
   }
 
   componentWillUnmount() {
