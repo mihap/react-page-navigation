@@ -1,4 +1,5 @@
-import React, { PureComponent, PropTypes as T } from 'react';
+import React, { PureComponent } from 'react';
+import T from 'prop-types';
 
 
 class Anchor extends PureComponent {

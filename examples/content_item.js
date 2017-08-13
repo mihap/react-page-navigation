@@ -1,4 +1,5 @@
-import React, { PureComponent, PropTypes as T } from 'react';
+import React, { PureComponent } from 'react';
+import T from 'prop-types';
 import { Anchor } from 'react-page-navigation';
 import { contentItemMargin } from 'assets/variables.scss';
 

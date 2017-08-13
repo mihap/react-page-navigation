@@ -1,4 +1,5 @@
-import React, { PureComponent, PropTypes as T } from 'react';
+import React, { PureComponent } from 'react';
+import T from 'prop-types';
 import MutationObserver from 'mutation-observer';
 import { mount, unmount } from './api';
 import Link from './link';

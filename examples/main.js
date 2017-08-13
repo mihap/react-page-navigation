@@ -1,4 +1,5 @@
-import React, { PureComponent, PropTypes as T } from 'react';
+import React, { PureComponent } from 'react';
+import T from 'prop-types';
 import { Navigation } from 'react-page-navigation';
 import { navHeight } from 'assets/variables.scss';
 import ContentItem from './content_item';

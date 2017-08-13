@@ -1,4 +1,5 @@
-import React, { PureComponent, createElement, PropTypes as T } from 'react';
+import React, { PureComponent, createElement } from 'react';
+import T from 'prop-types';
 
 class Link extends PureComponent {
   static propTypes = {
